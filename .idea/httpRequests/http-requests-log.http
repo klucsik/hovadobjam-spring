@@ -1,0 +1,216 @@
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T031147.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T031127.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T031055.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T031025.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T030943.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T030911.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/2
+
+<> 2020-09-14T030706.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/1
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030641.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030602.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030522.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030428.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030312.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030151.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030114.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030103.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T030006.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T025730.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T025110.500.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T024435.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T024346.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T024229.200.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T020812.404.json
+
+###
+
+GET http://localhost:8080/api/materials/1
+
+<> 2020-09-14T020656.404.json
+
+###
+
+GET http://localhost:8080/api/trashes/1
+
+<> 2020-09-14T020352.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/1
+
+<> 2020-09-14T015246.200.json
+
+###
+
+GET http://localhost:8080/api/trashes/1
+
+<> 2020-09-14T014645.500.json
+
+###
+
+GET http://localhost:8080/api/trashes/1
+
+<> 2020-09-14T013740.500.json
+
+###
+
+GET http://localhost/api/trashes/1
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T112048.200.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111947.500.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111732.401.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111516.401.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111445.401.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111255.401.json
+
+###
+
+GET http://localhost:8080/api/users/1
+
+<> 2020-09-14T111042.401.json
+
+###
+
+GET http://localhost:8080/api/users/{{id}}
+
+###
+

@@ -1,9 +1,9 @@
-package klucsik.hovadobjam.trash;
+package klucsik.hovadobjam.material;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import klucsik.hovadobjam.material.Material;
+import klucsik.hovadobjam.trash.Trash;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +13,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trash {
+public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,20 +33,15 @@ public class Trash {
 
     private String name;
 
-    @ManyToOne
-    private Material material;
+    @OneToMany(mappedBy = "material")
+    private List<Trash> trashes;
 
-    public Trash(String name){
+    public Material(String name){
         this.name=name;
-    }
-
-    public Trash(Material material, String name){
-        this.name=name;
-        this.material=material;
     }
 
     @Override
     public String toString() {
-        return String.format("Trash[id=%d, name='%s', material='%s']", id, name, material);
+        return String.format("Material[id=%d, name='%s']", id, name);
     }
 }

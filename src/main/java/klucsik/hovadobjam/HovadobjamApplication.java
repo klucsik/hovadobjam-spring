@@ -1,5 +1,7 @@
 package klucsik.hovadobjam;
 
+import klucsik.hovadobjam.material.Material;
+import klucsik.hovadobjam.material.MaterialRepository;
 import klucsik.hovadobjam.trash.Trash;
 import klucsik.hovadobjam.trash.TrashRepository;
 import klucsik.hovadobjam.user.User;
@@ -23,7 +25,7 @@ public class HovadobjamApplication {
     private static final Logger log = LoggerFactory.getLogger(HovadobjamApplication.class);
 
     @Bean
-    public CommandLineRunner demo(UserRepository userRepository, TrashRepository trashRepository) {
+    public CommandLineRunner demo(UserRepository userRepository, TrashRepository trashRepository, MaterialRepository materialRepository) {
         return (args) -> {
             // save a few users
             userRepository.save(new User("Thiri"));
@@ -36,9 +38,22 @@ public class HovadobjamApplication {
             }
             log.info("");
 
-            // save a few trashes
-            trashRepository.save(new Trash("Krumpli"));
+            // save a few materials
+            Material komposzt = new Material("Komposzt");
+            materialRepository.save(komposzt);
 
+            // fetch all
+            log.info("Customers found with findAll():");
+            log.info("-------------------------------");
+            for (Material material : materialRepository.findAll()) {
+                log.info(material.toString());
+            }
+            log.info("");
+
+            // save a few trashes
+            trashRepository.save(new Trash(komposzt,"Krumpli"));
+            trashRepository.save(new Trash(komposzt,"Alma"));
+            trashRepository.save(new Trash("Burgonya"));
             // fetch all
             log.info("Customers found with findAll():");
             log.info("-------------------------------");

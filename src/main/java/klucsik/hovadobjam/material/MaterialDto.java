@@ -1,17 +1,18 @@
-package klucsik.hovadobjam.trash;
+package klucsik.hovadobjam.material;
 
-import klucsik.hovadobjam.material.MaterialDto;
+import klucsik.hovadobjam.trash.TrashDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
-public class TrashDto {
+public class MaterialDto {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
     private String name;
-    private MaterialDto materialDto;
+    private List<TrashDto> trashesDto;
 }
