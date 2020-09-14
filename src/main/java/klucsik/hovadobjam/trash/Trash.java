@@ -1,4 +1,4 @@
-package klucsik.hovadobjam.user;
+package klucsik.hovadobjam.trash;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Trash {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(updatable = false)
@@ -26,16 +26,14 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime lastUpdatedAt;
 
-    private String username;
-    private String email;
-    private String password;
+    private String name;
 
-    public User(String username){
-        this.username=username;
+    public Trash(String name){
+        this.name=name;
     }
 
     @Override
     public String toString() {
-        return String.format("User[id=%d, username='%s', email='%s']", id, username, email);
+        return String.format("Trash[id=%d, name='%s']", id, name);
     }
 }
