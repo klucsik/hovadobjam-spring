@@ -13,4 +13,11 @@ public class MaterialService {
         Material material = materialRepository.findById(id).orElse(null);
         return MaterialMapper.INSTANCE.materialToDto(material);
     }
+    public void delete(Long id){
+        Material material = materialRepository.findById(id).orElse(null);
+
+        if (material == null){ return;}
+
+        materialRepository.delete(material);
+    }
 }

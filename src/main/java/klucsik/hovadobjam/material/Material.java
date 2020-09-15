@@ -1,8 +1,5 @@
 package klucsik.hovadobjam.material;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import klucsik.hovadobjam.trash.Trash;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,5 +39,14 @@ public class Material {
     @Override
     public String toString() {
         return String.format("Material[id=%d, name='%s']", id, name);
+    }
+
+    @PreRemove
+    public void preRemove(){
+
+        for(Trash trash : this.trashes){
+            trash.setMaterial(null);
+        }
+
     }
 }
