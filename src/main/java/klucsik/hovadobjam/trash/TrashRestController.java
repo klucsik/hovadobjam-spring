@@ -1,6 +1,6 @@
 package klucsik.hovadobjam.trash;
 
-import klucsik.hovadobjam.exceptionhandling.MyResourceNotFoundException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,19 +28,18 @@ public class TrashRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TrashDto> show(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<TrashDto> show(@PathVariable("id") Long id) throws NotFoundException {
         TrashDto foundEntity = service.find(id);
         if (foundEntity==null){
-            String message = String.format("Cannot find trash with id:'%s'", id);
-            throw new MyResourceNotFoundException(message);
+            throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
         }
         return ResponseEntity.ok(foundEntity);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) {
-        if (service.find(id) == null) {
-            return  new ResponseEntity(HttpStatus.NOT_FOUND);
+    public ResponseEntity delete(@PathVariable("id") Long id) throws NotFoundException {
+        if (service.find(id)==null){
+            throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
         } else {
             service.delete(id);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
