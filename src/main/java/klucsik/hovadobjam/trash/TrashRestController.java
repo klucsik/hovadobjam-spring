@@ -1,11 +1,10 @@
 package klucsik.hovadobjam.trash;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/trashes")
@@ -14,6 +13,19 @@ public class TrashRestController {
     @Autowired
     private TrashService service;
 
+    @GetMapping("")
+    public ResponseEntity<Page<TrashDto>> list(
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "pagesize", required = false, defaultValue = "20") Integer pagesize
+    ) {
+        Page<TrashDto> customerPage = service.list(page, pagesize);
+        if (customerPage == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(customerPage);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TrashDto> show(@PathVariable("id") Long id) {
         TrashDto foundEntity = service.find(id);
@@ -21,6 +33,16 @@ public class TrashRestController {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(foundEntity);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        if (service.find(id) == null) {
+            return  new ResponseEntity(HttpStatus.NOT_FOUND);
+        } else {
+            service.delete(id);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 }
