@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,6 +31,7 @@ public class Trash {
     @UpdateTimestamp
     private LocalDateTime lastUpdatedAt;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @ManyToOne

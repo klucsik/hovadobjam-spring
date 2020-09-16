@@ -1,11 +1,15 @@
 package klucsik.hovadobjam.trash;
 
 import javassist.NotFoundException;
+import klucsik.hovadobjam.exceptionhandling.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/trashes")
@@ -34,6 +38,15 @@ public class TrashRestController {
             throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
         }
         return ResponseEntity.ok(foundEntity);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash, BindingResult result) {
+        if (result.hasErrors()){
+            throw new InvalidInputException("Failed Validation: " + result.getAllErrors().toString());
+        }
+        if (!updatedTrash.getId().equals(id)) throw new InvalidInputException(String.format("entity Id '%d' and resource Id '%d' doesn't match!",id,updatedTrash.getId()));
+        return ResponseEntity.ok(service.save(updatedTrash));
     }
 
     @DeleteMapping("/{id}")

@@ -8,8 +8,11 @@ import org.mapstruct.factory.Mappers;
 public interface TrashMapper {
     TrashMapper INSTANCE = Mappers.getMapper(TrashMapper.class);
 
-    @Mapping(source = "material", target="materialDto")
+
+    @Mapping(source = "material", target = "materialDto")
     TrashDto trashToDto(Trash trash);
 
+
+    @Mapping(source = "materialDto", target = "material")
     Trash dtoToTrash(TrashDto trashDto);
 }
