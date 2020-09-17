@@ -34,6 +34,7 @@ public class TrashService {
 
     public void delete(Long id) {
         Trash trash = trashRepository.findById(id).orElse(null);
+        if (trash==null) return;
         trashRepository.delete(trash);
     }
 
@@ -46,7 +47,7 @@ public class TrashService {
         validateTrash(trash); //If invalid, the rest is not reached.
         trashRepository.save(trash);
         return find(trash.getId()); //we give back the refreshed object
-    }
+    } // FIXME: The associated object isnt fetched at this point
 
     private void validateTrash(Trash trash) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

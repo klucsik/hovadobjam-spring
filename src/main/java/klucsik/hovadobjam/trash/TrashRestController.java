@@ -34,7 +34,7 @@ public class TrashRestController {
     @GetMapping("/{id}")
     public ResponseEntity<TrashDto> show(@PathVariable("id") Long id) throws NotFoundException {
         TrashDto foundEntity = service.find(id);
-        if (foundEntity==null){
+        if (foundEntity == null) {
             throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
         }
         return ResponseEntity.ok(foundEntity);
@@ -42,16 +42,25 @@ public class TrashRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash, BindingResult result) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             throw new InvalidInputException("Failed Validation: " + result.getAllErrors().toString());
         }
-        if (!updatedTrash.getId().equals(id)) throw new InvalidInputException(String.format("entity Id '%d' and resource Id '%d' doesn't match!",id,updatedTrash.getId()));
+        if (!updatedTrash.getId().equals(id))
+            throw new InvalidInputException(String.format("entity Id '%d' and resource Id '%d' doesn't match!", id, updatedTrash.getId()));
+        return ResponseEntity.ok(service.save(updatedTrash));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<TrashDto> create(@RequestBody @Valid TrashDto updatedTrash, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new InvalidInputException("Failed Validation: " + result.getAllErrors().toString());
+        }
         return ResponseEntity.ok(service.save(updatedTrash));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) throws NotFoundException {
-        if (service.find(id)==null){
+        if (service.find(id) == null) {
             throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
         } else {
             service.delete(id);
