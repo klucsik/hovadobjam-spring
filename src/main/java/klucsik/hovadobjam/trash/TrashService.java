@@ -39,7 +39,7 @@ public class TrashService {
 
     // if found, update, else create
     public TrashDto save(TrashDto trashDto) {
-
+        //FIXME: This should skip the null properties on update, it should be done in the mapper. https://www.baeldung.com/spring-data-partial-update
         Trash trash = TrashMapper.INSTANCE.dtoToTrash(trashDto);
         //TODO: changes in the material fields should make a warning, you cant edit those from here
         //FIXME: use more elegant validation, I could not done it with annotations (always got rollback exception)

@@ -1,10 +1,10 @@
 package klucsik.hovadobjam.trash;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import klucsik.hovadobjam.config.BaseMapperConfig;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(config = BaseMapperConfig.class)
 public interface TrashMapper {
     TrashMapper INSTANCE = Mappers.getMapper(TrashMapper.class);
 
