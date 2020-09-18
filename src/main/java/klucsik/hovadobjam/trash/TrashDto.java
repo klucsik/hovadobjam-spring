@@ -4,6 +4,7 @@ import klucsik.hovadobjam.material.MaterialDto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Setter
@@ -12,6 +13,8 @@ public class TrashDto {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
     private MaterialDto materialDto;
 }

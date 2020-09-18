@@ -3,10 +3,10 @@ package klucsik.hovadobjam.trash;
 import javassist.NotFoundException;
 import klucsik.hovadobjam.exceptionhandling.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,28 +33,18 @@ public class TrashRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TrashDto> show(@PathVariable("id") Long id) throws NotFoundException {
-        TrashDto foundEntity = service.find(id);
-        if (foundEntity == null) {
-            throw new NotFoundException(String.format("Cannot find trash with id:'%s'", id));
-        }
-        return ResponseEntity.ok(foundEntity);
+        return ResponseEntity.ok(service.find(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new InvalidInputException("Failed Validation: " + result.getAllErrors().toString());
-        }
+    public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash) {
         if (!updatedTrash.getId().equals(id))
             throw new InvalidInputException(String.format("entity Id '%d' and resource Id '%d' doesn't match!", id, updatedTrash.getId()));
         return ResponseEntity.ok(service.save(updatedTrash));
     }
 
     @PostMapping("")
-    public ResponseEntity<TrashDto> create(@RequestBody @Valid TrashDto updatedTrash, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new InvalidInputException("Failed Validation: " + result.getAllErrors().toString());
-        }
+    public ResponseEntity<TrashDto> create(@RequestBody @Valid TrashDto updatedTrash) {
         return ResponseEntity.ok(service.save(updatedTrash));
     }
 

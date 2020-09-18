@@ -1,13 +1,15 @@
 package klucsik.hovadobjam.trash;
 
+import javassist.NotFoundException;
+import klucsik.hovadobjam.exceptionhandling.InvalidInputException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.*;
 
 @Service
 @AllArgsConstructor
@@ -16,8 +18,8 @@ public class TrashService {
 
     private final TrashRepository trashRepository;
 
-    public TrashDto find(Long id) {
-        Trash trash = trashRepository.findById(id).orElse(null);
+    public TrashDto find(Long id) throws NotFoundException {
+        Trash trash = trashRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Cannot find trash with id:'%s'", id)));
         return TrashMapper.INSTANCE.trashToDto(trash);
     }
 
@@ -33,11 +35,12 @@ public class TrashService {
     }
     // if found, update, else create
     @Transactional
-    public TrashDto save(@Valid TrashDto trashDto) {
+    public TrashDto save(TrashDto trashDto) {
         Trash trash = new Trash();
         if (trashDto.getId() != null) trash = trashRepository.findById(trashDto.getId()).orElse(null);
         TrashMapper.INSTANCE.dtoToTrash(trashDto,trash);
         //TODO: changes in the material fields should make a warning, you cant edit those from here
+        //TODO validate material presence
         trashRepository.saveAndFlush(trash);
         trashRepository.refresh(trash); //we refresh te object
         return TrashMapper.INSTANCE.trashToDto(trash); //we give back the refreshed object
