@@ -15,6 +15,6 @@ public class TrashDto {
     private LocalDateTime lastUpdatedAt;
     @NotBlank(message = "Name is mandatory")
     private String name;
-
+    //put here @valid if want object graph validation
     private MaterialDto materialDto;
 }

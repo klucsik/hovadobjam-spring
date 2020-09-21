@@ -3,7 +3,6 @@ package klucsik.hovadobjam.trash;
 import javassist.NotFoundException;
 import klucsik.hovadobjam.exceptionhandling.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,14 +36,14 @@ public class TrashRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash) {
+    public ResponseEntity<TrashDto> update(@PathVariable("id") Long id, @RequestBody @Valid TrashDto updatedTrash) throws NotFoundException {
         if (!updatedTrash.getId().equals(id))
             throw new InvalidInputException(String.format("entity Id '%d' and resource Id '%d' doesn't match!", id, updatedTrash.getId()));
         return ResponseEntity.ok(service.save(updatedTrash));
     }
 
     @PostMapping("")
-    public ResponseEntity<TrashDto> create(@RequestBody @Valid TrashDto updatedTrash) {
+    public ResponseEntity<TrashDto> create(@RequestBody @Valid TrashDto updatedTrash) throws NotFoundException {
         return ResponseEntity.ok(service.save(updatedTrash));
     }
 
