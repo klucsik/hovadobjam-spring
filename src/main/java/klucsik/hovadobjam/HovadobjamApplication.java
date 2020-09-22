@@ -43,7 +43,7 @@ public class HovadobjamApplication {
             materialRepository.save(komposzt);
 
             // fetch all
-            log.info("Customers found with findAll():");
+            log.info("Materials found with findAll():");
             log.info("-------------------------------");
             for (Material material : materialRepository.findAll()) {
                 log.info(material.toString());
@@ -55,7 +55,7 @@ public class HovadobjamApplication {
             trashRepository.save(new Trash(komposzt,"Alma"));
             trashRepository.save(new Trash("Burgonya"));
             // fetch all
-            log.info("Customers found with findAll():");
+            log.info("Trashes found with findAll():");
             log.info("-------------------------------");
             for (Trash trash : trashRepository.findAll()) {
                 log.info(trash.toString());
