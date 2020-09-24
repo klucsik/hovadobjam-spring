@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class HovadobjamApplication {
@@ -20,6 +21,12 @@ public class HovadobjamApplication {
         SpringApplication.run(HovadobjamApplication.class, args);
     }
 
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+
+        return new BCryptPasswordEncoder();
+    }
 
     //for testing and seeding data
     private static final Logger log = LoggerFactory.getLogger(HovadobjamApplication.class);
