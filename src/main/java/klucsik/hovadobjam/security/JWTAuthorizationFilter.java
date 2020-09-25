@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import klucsik.hovadobjam.exceptionhandling.invalidAuthTokenException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -30,10 +31,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)){
             chain.doFilter(req,res);
+           // throw new invalidAuthTokenException("Malformed or missing auth header!"); //TODO: handle this
             return;
-        } else {
-            throw new invalidAuthTokenException("Malformed or missing auth header!");
         }
+        UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(req);
+
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        chain.doFilter(req,res);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request){
